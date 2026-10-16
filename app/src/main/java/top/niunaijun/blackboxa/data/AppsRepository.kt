@@ -275,12 +275,13 @@ class AppsRepository {
                         return@forEachIndexed
                     }
 
+                    val cloneLabel = safeLoadAppLabel(applicationInfo) + ".C_v${userId + 1}"
                     val info =
                             AppInfo(
-                                    safeLoadAppLabel(applicationInfo),
+                                    cloneLabel,
                                     safeLoadAppIcon(
                                             applicationInfo
-                                    ), 
+                                    ),
                                     applicationInfo.packageName,
                                     applicationInfo.sourceDir ?: "",
                                     false

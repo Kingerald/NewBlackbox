@@ -8,13 +8,18 @@ import androidx.core.graphics.drawable.IconCompat
 import androidx.core.graphics.drawable.toBitmap
 import top.niunaijun.blackboxa.R
 import top.niunaijun.blackboxa.bean.AppInfo
-import top.niunaijun.blackboxa.util.ToastEx.toast
 import top.niunaijun.blackboxa.view.main.ShortcutActivity
 
 object ShortcutUtil {
 
     fun createShortcut(context: Context, userID: Int, info: AppInfo) {
         if (!ShortcutManagerCompat.isRequestPinShortcutSupported(context)) {
+            toast(R.string.cannot_create_shortcut)
+            return
+        }
+
+        val icon = info.icon
+        if (icon == null) {
             toast(R.string.cannot_create_shortcut)
             return
         }
@@ -35,7 +40,7 @@ object ShortcutUtil {
             .setIntent(intent)
             .setShortLabel(labelName)
             .setLongLabel(labelName)
-            .setIcon(IconCompat.createWithBitmap(info.icon.toBitmap()))
+            .setIcon(IconCompat.createWithBitmap(icon.toBitmap()))
             .build()
 
         ShortcutManagerCompat.requestPinShortcut(context, shortcutInfo, null)
